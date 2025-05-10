@@ -10,3 +10,14 @@ class Note(db.Model):
 
     def __repr__(self):
         return f"<Note {self.id}: {self.title}>"
+    
+
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(80), unique=True, nullable=False)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+    password = db.Column(db.String(120), nullable=False)
+    notes = db.relationship("Note", backref="user", lazy=True)
+
+    def __repr__(self):
+        return f"<User {self.id}: {self.username}>"
