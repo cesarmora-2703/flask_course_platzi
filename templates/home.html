@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Inicio</title>
+</head>
+<body>
+    <h1>Bienvenido a la Notes App</h1>
+
+    <ul>
+        {% for note in notes %}
+            <li>
+                ID:{{ note.id }} - {{ note.title }}
+                <br>
+                {{ note.content }}
+                <a href="{{ url_for('edit_note', note_id=note.id) }}">
+                    ✍️ Editar
+               </a>
+               <form action="{{ url_for('delete_note', note_id=note.id) }}" method="post">
+                   <button type="submit">Eliminar"</button >
+               </form>
+            </li>
+        {% else %}
+            <p>Aún no se han creado notas</p>
+        {% endfor %}
+    </ul>
+
+    <br>
+    <a href="{{url_for('create_note')}}">Agregar una nueva Nota</a>
+</body>
+</html>
