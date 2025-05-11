@@ -1,0 +1,27 @@
+Procedimiento para usar Flask Migrate:
+
+1. Ejecuta:
+
+pip install Flask-Migrate
+
+2. En app.py añadir:
+
+from flask_migrate import Migrate
+
+migrate = Migrate(app, db) # <--- Añade esta línea
+
+3. Ejecuta:
+
+flask db init (Inicializa una vez por proyecto)
+
+4. Agrega el campos al modelo
+
+created_at = db.Column(db.DateTime, default=db.func.now(), nullable=True) # tiene que aceptar nulo pq existen registros
+
+5. Ejecuta el comando:
+
+flask db migrate -m "Add created_at column to Note"
+
+6. Ejecuta:
+
+flask db upgrade

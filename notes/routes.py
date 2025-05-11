@@ -25,21 +25,20 @@ def create_note():
 
 
 # EDIT NOTE
-@notes_bp.route("/editar-nota/<int:note_id>", methods=["GET", "POST"])
-def edit_note(note_id):
-    note = Note.query.get_or_404(note_id)
+@notes_bp.route("/editar-nota/<int:id>", methods=["GET", "POST"])
+def edit_note(id):
+    note = Note.query.get_or_404(id)
     if request.method == "POST":
-        note.title = request.form.get("title")
-        note.content = request.form.get("content")
-
+        note.title = request.form.get("title", "")
+        note.content = request.form.get("content", "")
         db.session.commit()
         return redirect(url_for("notes.home"))
-    return render_template("note_form.html", note=note)
+    return render_template("edit_note.html", note=note)
 
 
-@notes_bp.route("/eliminar-nota/<int:note_id>", methods=["POST"])
-def delete_note(note_id):
-    note = Note.query.get_or_404(note_id)
+@notes_bp.route("/eliminar-nota/<int:id>", methods=["POST"])
+def delete_note(id):
+    note = Note.query.get_or_404(id)
     db.session.delete(note)
     db.session.commit()
     return redirect(url_for("notes.home"))
