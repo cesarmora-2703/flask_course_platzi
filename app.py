@@ -14,7 +14,7 @@ def create_app():
     app.register_blueprint(notes_bp)
     app.register_blueprint(users_bp)
     app.register_blueprint(auth_bp)
-    migrate = Migrate(app, db) # <--- Añade esta línea   
+    migrate = Migrate(app, db) # <--- Añade esta línea  # noqa: F841
 
     @app.route("/acerca-de")
     def acerca_de():
